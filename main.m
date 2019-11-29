@@ -86,6 +86,12 @@ function reconheceCedula(nota)
   
   elseif (output == 100)
     contador100 = contador100 + 1; 
+    
+  % Se não reconhece a imagem, então a cédula tem tom rosa (caso 5 e 10)
+  % Neste caso, aumentamos o brilho (fonte: https://publish.illinois.edu/commonsknowledge/2017/07/19/what-to-do-when-ocr-software-doesnt-seem-to-be-working/)
+  else
+    nota = nota + 145;
+    reconheceCedula(nota);
   endif
   
   disp(valor);

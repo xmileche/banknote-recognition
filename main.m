@@ -17,6 +17,19 @@
 clear all, close all, clc;
 pkg load image;
 
+% Criacao de variaveis globais para captura de quantidade
+% de cada cedula de real
+global contador2 = 0 e contador5 = 0 e contador10 = 0;
+global contador20 = 0 e contador50 = 0 e contador100 = 0;
+
+% Armazenamento de cada cedula de real
+nota2    = imread('2.PNG');
+nota5    = imread('5.PNG');
+nota10   = imread('10.PNG');
+nota20   = imread('20.PNG');
+nota50   = imread('50.PNG');
+nota100  = imread('100.jpg');
+
 % Funcao responsavel por reconhecer a cedula escolhida
 function reconheceCedula(nota, op)
   
@@ -79,43 +92,43 @@ endfunction
 while(1)
 
   % Usuario escolhe a nota para analise
-  op = menu("Escolha uma opção:", "1) 2 reais ","2) 5 reais",
-            "3) 10 reais", "4) 20 reais", "5) 50 reais", "6) 100 reais", "7) Sair");
+  op = menu("Escolha uma opção:", "[1] 2 reais ","[2] 5 reais",
+            "[3] 10 reais", "[4] 20 reais", "[5] 50 reais", "[6] 100 reais", "[7] Sair");
 
   % Caso a escolha seja a nota de 2 reais
   if(op == 1)
-    nota2 = imread('2.PNG');
     reconheceCedula(nota2, op);
+    contador2 = contador2 + 1;
   endif
 
   % Caso a escolha seja a nota de 5 reais
   if(op == 2)
-    nota5 = imread('5.PNG');
     reconheceCedula(nota5, op);
+    contador5 = contador5 + 1;
   endif
 
   % Caso a escolha seja a nota de 10 reais
   if(op == 3)
-    nota10  = imread('10.PNG');
     reconheceCedula(nota10, op);
+    contador10 = contador10 + 1;
   endif
 
   % Caso a escolha seja a nota de 20 reais
   if(op == 4)
-    nota20  = imread('20.PNG');
     reconheceCedula(nota20, op);
+    contador20 = contador20 + 1;
   endif
 
   % Caso a escolha seja a nota de 50 reais
   if(op == 5)
-    nota50 = imread('50.PNG');
     reconheceCedula(nota50, op);
+    contador50 = contador50 + 1;
   endif
 
   % Caso a escolha seja a nota de 100 reais
   if(op == 6)
-    nota100 = imread('100.jpg');
     reconheceCedula(nota100, op);
+    contador100 = contador100 + 1;
   endif
 
   % Caso o usuario deseja sair da execucao do programa
@@ -124,3 +137,12 @@ while(1)
   endif
   
 endwhile
+
+% Represetação do resultado final
+figure, subplot(2, 3, 1), imshow(nota2), title(['Cédula de 2 - Quantidade: ', num2str(contador2)]), grid off;
+subplot(2, 3, 2), imshow(nota5), title(['Cédula de 5 - Quantidade: ', num2str(contador5)]), grid off;
+subplot(2, 3, 3), imshow(nota10), title(['Cédula de 10 - Quantidade: ', num2str(contador10)]), grid on;
+subplot(2, 3, 4), imshow(nota20), title(['Cédula de 20 - Quantidade: ', num2str(contador20)]);
+subplot(2, 3, 5), imshow(nota50), title(['Cédula de 50 - Quantidade: ', num2str(contador50)]);
+subplot(2, 3, 6), imshow(nota100), title(['Cédula de 100 - Quantidade: ', num2str(contador100)]);
+

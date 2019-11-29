@@ -118,8 +118,10 @@ while(1)
   
 endwhile
 
+valorTotal = contador2 * 2 + contador5 * 5 + contador10 * 10 +  contador20 * 20 + contador50 * 50 + contador100 * 100;
+
 % Represetação do resultado final
-figure, subplot(2, 3, 1), imshow(nota2), title(['Cédula de 2 - Quantidade: ', num2str(contador2)]), grid off;
+figure('name',['Valor Total: ', num2str(valorTotal)]), subplot(2, 3, 1), imshow(nota2), title(['Cédula de 2 - Quantidade: ', num2str(contador2)]), grid off;
 subplot(2, 3, 2), imshow(nota5), title(['Cédula de 5 - Quantidade: ', num2str(contador5)]), grid off;
 subplot(2, 3, 3), imshow(nota10), title(['Cédula de 10 - Quantidade: ', num2str(contador10)]), grid on;
 subplot(2, 3, 4), imshow(nota20), title(['Cédula de 20 - Quantidade: ', num2str(contador20)]);

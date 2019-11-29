@@ -10,7 +10,7 @@
 %                                                                 %
 %   Dependências Necessárias:                                     %
 %   sudo apt-get install ocrad                                    %
-%                                                                 %
+%   chmod +x run_ocrad.sh                                                              %
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
 % Limpeza da area de trabalho e carregamento do pacote de imagem

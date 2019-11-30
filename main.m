@@ -54,6 +54,27 @@ function reconheceCedula(nota)
   % Realiza o crop no canto superior direito (onde localiza-se o numero da nota)
   notaValor = imcrop(notaGray, [x_ini, 1, 90, 70]);
   
+  % Filtro da mediana para melhorar imagem recortada
+  size_template = 3;
+  [lin, col] = size(notaValor);
+  for i = 2:(lin - fix(size_template/2))
+    for j = 2:(col - fix(size_template/2))
+      k = 1;
+      for m = i-1:i+1
+        for n = j-1:j+1
+          vetor_elem_mediana(k) = notaValor(m, n);
+          k = k+1;
+        end
+      end
+      vetor_elem_mediana = sort(vetor_elem_mediana);
+      notaValor(i,j) = vetor_elem_mediana(fix(length(vetor_elem_mediana)/2)+1);
+    end
+  end
+  figure, imshow(notaValor), title('filtro mediana');
+
+  % aumenta o brilho
+  notaValor = notaValor + 100;
+  
   figure, imshow(notaValor);
   frame = notaValor;
   
@@ -85,18 +106,14 @@ function reconheceCedula(nota)
     contador50 = contador50 + 1;
   
   elseif (output == 100)
-    contador100 = contador100 + 1; 
+    contador100 = contador100 + 1;
+  endif 
     
   % Se não reconhece a imagem, então a cédula tem tom rosa (caso 5 e 10)
   % Neste caso, aumentamos o brilho (fonte: https://publish.illinois.edu/commonsknowledge/2017/07/19/what-to-do-when-ocr-software-doesnt-seem-to-be-working/)
-  else
-    nota = nota + 145;
-    reconheceCedula(nota);
-  endif
   
   disp(valor);
-  
-  close all;
+
 
 endfunction
 

@@ -23,7 +23,8 @@ pkg load image;
 %===================================%
 % Valor da cedula
 global result;
-global numbers = [ ];
+global numbers = { };
+global banknote2;
 % Captura de quantidade de cada cedula de real
 global contador2 = 0 e contador5 = 0 e contador10 = 0;
 global contador20 = 0 e contador50 = 0 e contador100 = 0;
@@ -109,15 +110,17 @@ endfunction
 
 % Funcao principal para reconhecimento das cedulas
 function recognizeBanknote(banknote, initialX)
-  global numbers = [ ];
   global result;
   global contador2 e contador5 e contador10 e contador20 e contador50 e contador100;
   global templates;
+  numbers = { };
+  recognize = 1;
   
   % Redimensiona a imagem para o maior valor possivel (100)
   banknoteGray = imresize(rgb2gray(banknote), [199 447]); 
   [lin col] = size(banknoteGray);
-
+  global banknote2 = banknoteGray; 
+  
   % Realiza o crop no canto superior direito da nota
   x_ini = col - 100;
   cropNumber = imcrop(banknoteGray, [x_ini, 1, 90, 70]);  
@@ -142,8 +145,8 @@ function recognizeBanknote(banknote, initialX)
     [line, col] = find(labels == n);
     numberExtracted = imresize(imgOut(min(line):max(line), min(col):max(col)), [42 24]) ;  
 
+    a{n} = numberExtracted; 
     numbers = [numbers numberExtracted];
-             imshow(numberExtracted);pause(0.5);
             %-------------------------------------------------------------------
     % Converte a imagem para numero
     digitizedNumber = read_number(numberExtracted);
@@ -175,7 +178,19 @@ function recognizeBanknote(banknote, initialX)
   % Se nao encontrou a nota, precisamos realizar o crop de forma diferente 
   else 
     recognizeBanknote(banknote, 5);
+    recognize = 0;
   endif 
+  
+  if recognize == 1
+    figure, subplot(2, 4, 1), imshow(banknote), title('Imagem Original'), grid off;
+    subplot(2, 4, 2), imshow(banknoteGray), title('Imagem em Cinza'), grid off;
+    subplot(2, 4, 3), imshow(cropNumber), title('Crop do Número'), grid off;
+    subplot(2, 4, 4), imshow(img), title('Número Binarizado'), grid on; 
+    for k = 1:max(size(numbers))
+      c =  cell2mat (numbers(k));
+      subplot(2, 4, 4+k), imshow(mat2gray(c)), title(['Número: ', num2str(recognizeNumber(k))]);
+    end
+  end
 endfunction
 
 % Executa o procedimento até o usuário sair do programa
@@ -189,6 +204,7 @@ while(1)
     % Le a imagem e chama o reconhecedor para a mesma
     nota = imread(file);
     recognizeBanknote(nota, 17);
+    msgbox ("Cédula reconhecida com sucesso.", "Aviso");
   elseif(op == 2)
     break
   endif

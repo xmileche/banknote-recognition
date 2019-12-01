@@ -11,6 +11,8 @@
 %   Adapatação do código: Optical Caracter Recognition (OCR)      %  
 %   https://github.com/khitk9738/OCR-Matlab                       %
 %                                                                 %
+%   Amostra de Imagens:                                           %
+%   https://www.bcb.gov.br/cedulasemoedas/cedulasemitidas         %
 %                                                                 %
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 

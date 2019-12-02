@@ -40,6 +40,6 @@ O menu é exibido novamente. Se o usuário optar por reconhecer uma nova cédula
 
 #### 6 - Resultado final:
 
-![Image description](Todas_Celulas.jpeg)
+![Image description](Todas_Cedulas.jpeg)
 
 Na finalização do programa, exibimos a quantidade de cada cédula reconhecida e o valor total das cédulas.
